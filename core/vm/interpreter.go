@@ -37,6 +37,10 @@ type Config struct {
 	ExtraEips               []int // Additional EIPS that are to be enabled
 
 	StatelessSelfValidation bool // Generate execution witnesses and self-check against them (testing purpose)
+
+	// EVM1Interpreter configuration options
+	UseEVM1    bool   // Enable EVM1Interpreter interpreter
+	EVM1Config string // EVM1Interpreter configuration string (library path and options)
 }
 
 // ScopeContext contains the things that are per-call, such as stack and memory,

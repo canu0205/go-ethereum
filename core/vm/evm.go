@@ -1,5 +1,3 @@
-// Copyright 2014 The go-ethereum Authors
-// This file is part of the go-ethereum library.
 //
 // The go-ethereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -146,7 +144,19 @@ func NewEVM(blockCtx BlockContext, statedb StateDB, chainConfig *params.ChainCon
 		hooks:       newNoopOpCodeHooks(),
 	}
 	evm.precompiles = activePrecompiledContracts(evm.chainRules)
-	evm.interpreter = NewEVMInterpreter(evm)
+
+	// Initialize EVM1Interpreter if configured
+	if config.UseEVM1 && config.EVM1Config != "" {
+		InitEVM1EVM(config.EVM1Config)
+		if evm1Interpreter := NewEVM1Interpreter(evm); evm1Interpreter != nil {
+			evm.interpreter = evm1Interpreter
+		} else {
+			// Fall back to default interpreter if EVM1Interpreter initialization fails
+			evm.interpreter = NewEVMInterpreter(evm)
+		}
+	} else {
+		evm.interpreter = NewEVMInterpreter(evm)
+	}
 
 	return evm
 }
