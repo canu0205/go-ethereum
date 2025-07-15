@@ -16,6 +16,7 @@
 *~
 .project
 .settings
+evmc_integration_diagram.md
 
 # used by the Makefile
 /build/_workspace/

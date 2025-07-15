@@ -147,7 +147,7 @@ func NewEVM(blockCtx BlockContext, statedb StateDB, chainConfig *params.ChainCon
 
 	// Initialize EVM1Interpreter if configured
 	if config.UseEVM1 && config.EVM1Config != "" {
-		InitEVM1EVM(config.EVM1Config)
+		//InitEVM1EVM(config.EVM1Config)
 		if evm1Interpreter := NewEVM1Interpreter(evm); evm1Interpreter != nil {
 			evm.interpreter = evm1Interpreter
 		} else {
